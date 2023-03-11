@@ -22,11 +22,6 @@ jobs:
         echo "REPO_SLUG=$REPO_SLUG" >> $GITHUB_ENV
         echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
 
-    - name: Download an artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: ${{ env.REPO_SLUG }}
-
     - name: Check Artifacts
       shell: bash
       run: |
@@ -36,3 +31,8 @@ jobs:
         cd $HOME
         echo "Home Directory"
         ls -lA
+
+    - name: Download an artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ env.REPO_SLUG }}
