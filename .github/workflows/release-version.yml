@@ -1,0 +1,38 @@
+name: Release Version
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Prepare variables
+      shell: bash
+      run: |
+        REPO_SLUG="${GITHUB_REPOSITORY#*/}"
+        TAG_NAME="${GITHUB_REF#refs/tags/}"
+
+        echo "REPO_SLUG=$REPO_SLUG" >> $GITHUB_ENV
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+
+    - name: Download an artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ env.REPO_SLUG }}
+
+    - name: Check Artifacts
+      shell: bash
+      run: |
+        pwd
+        echo "Current Directory"
+        ls -lA
+        cd $HOME
+        echo "Home Directory"
+        ls -lA
