@@ -25,6 +25,7 @@ jobs:
     - name: Check Artifacts
       shell: bash
       run: |
+        echo "${REPO_SLUG} ${TAG_NAME}"
         pwd
         echo "Current Directory"
         ls -lA
