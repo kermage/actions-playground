@@ -1,0 +1,27 @@
+name: Test ENV
+
+on: workflow_dispatch
+
+env:
+  REPO_SLUG: ${GITHUB_REPOSITORY#*/}
+  BASE: ${REPO_SLUG}
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+      - name: Print
+        shell: bash
+        run: |
+          node test.js
