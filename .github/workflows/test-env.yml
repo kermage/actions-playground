@@ -18,7 +18,6 @@ jobs:
           node-version: 20
           cache: "pnpm"
       - name: Print
-        shell: bash
         run: |
           export REPO_SLUG="${GITHUB_REPOSITORY#*/}"
           export BASE="${REPO_SLUG}"
