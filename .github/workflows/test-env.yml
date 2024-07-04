@@ -2,10 +2,6 @@ name: Test ENV
 
 on: workflow_dispatch
 
-env:
-  REPO_SLUG: ${GITHUB_REPOSITORY#*/}
-  BASE: ${REPO_SLUG}
-
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -24,4 +20,7 @@ jobs:
       - name: Print
         shell: bash
         run: |
+          export REPO_SLUG="${GITHUB_REPOSITORY#*/}"
+          export BASE="${REPO_SLUG}"
+
           node test.js
