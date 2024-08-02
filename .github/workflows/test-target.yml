@@ -24,6 +24,8 @@ jobs:
           echo "OS: ${{ runner.os }}"
           echo "Architecture: ${{ matrix.job.dpkg_arch }}"
           echo "Target: ${{ matrix.job.target }}"
+          printenv
+          ls -lA /home/
           du -h ~
 
       - name: Checkout repository
