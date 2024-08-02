@@ -24,9 +24,9 @@ jobs:
           echo "OS: ${{ runner.os }}"
           echo "Architecture: ${{ matrix.job.dpkg_arch }}"
           echo "Target: ${{ matrix.job.target }}"
+          echo "Platform: $(uname -s) $(uname -m) $(getconf LONG_BIT)"
+          cat /etc/os-release
           printenv
-          ls -lA /home/
-          du -h ~
 
       - name: Checkout repository
         uses: actions/checkout@v4
