@@ -1,0 +1,30 @@
+name: Test Targets
+
+on: workflow_dispatch
+
+jobs:
+  main:
+    name: ${{ matrix.job.target }} (${{ matrix.job.os }})
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        job:
+          - target: aarch64-unknown-linux-musl
+            dpkg_arch: arm64
+          - target: arm-unknown-linux-musleabihf
+            dpkg_arch: musl-linux-armhf
+          - target: i686-unknown-linux-musl
+            dpkg_arch: musl-linux-i686
+          - target: x86_64-unknown-linux-musl
+            dpkg_arch: musl-linux-amd64
+    steps:
+      - name: Environment Details
+        run: |
+          echo "OS: ${{ runner.os }}"
+          echo "Architecture: ${{ matrix.job.dpkg_arch }}"
+          echo "Target: ${{ matrix.job.target }}"
+          du -h ~
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
