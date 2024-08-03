@@ -27,9 +27,8 @@ jobs:
           echo "Platform: $(uname -s) $(uname -m) $(getconf LONG_BIT)"
           cat /etc/os-release
           printenv
-          ls -lA $HOME
-          ls -lA $HOME/bin
-          ls -lA $HOME/.local/bin
+          ls -lA /usr/local/bin
+          ls -lA /usr/local/sbin
 
       - name: Checkout repository
         uses: actions/checkout@v4
