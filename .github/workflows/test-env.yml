@@ -22,4 +22,10 @@ jobs:
           export REPO_SLUG="${GITHUB_REPOSITORY#*/}"
           export BASE="${REPO_SLUG}"
 
+          npx dotenv-extra
+          ls -la
+          touch .env
+          npx dotenv-extra VAR $GITHUB_REF CTX ${{ github.ref }}
+          cat .env
+
           node test.js
