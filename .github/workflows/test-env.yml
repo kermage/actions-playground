@@ -24,7 +24,7 @@ jobs:
 
           npx dotenv-extra
           ls -la
-          touch .env
+          echo "# TEST" > .env
           npx dotenv-extra VAR $GITHUB_REF CTX ${{ github.ref }}
           cat .env
 
