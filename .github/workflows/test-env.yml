@@ -19,13 +19,14 @@ jobs:
           cache: "pnpm"
       - name: Print
         run: |
-          export REPO_SLUG="${GITHUB_REPOSITORY#*/}"
-          export BASE="${REPO_SLUG}"
+          echo "Event name: ${{ github.event_name }}"
+          echo "Ref type: ${{ github.ref_type }}"
 
           npx dotenv-extra
           ls -la
           echo "# TEST" > .env
           npx dotenv-extra VAR $GITHUB_REF CTX ${{ github.ref }}
           cat .env
+          echo ""
 
           node test.js

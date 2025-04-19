@@ -6,4 +6,17 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      lazyscripts.js:
+        specifier: ^0.6.0
+        version: 0.6.0
+
+packages:
+
+  lazyscripts.js@0.6.0:
+    resolution: {integrity: sha512-ujEhnufOhicfBhFDPT60A9UfYhtJA9kyOy99gnFp0oi1nSTCG/1J9ZKcVbgU/hiLcPqWl6Vqw0JvIMox4pLEhA==}
+
+snapshots:
+
+  lazyscripts.js@0.6.0: {}
