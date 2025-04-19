@@ -20,7 +20,7 @@ jobs:
         id: archive
         shell: bash
         run: |
-          REPO_SLUG="${{ github.repository }}/${{ github.repository_owner }}\/}"
+          REPO_SLUG="${GITHUB_REPOSITORY#*/}"
           OUT_DIR="${HOME}/${REPO_SLUG}"
 
           mkdir -p "$OUT_DIR"
