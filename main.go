@@ -1,5 +1,7 @@
 package main
 
+var version = "(untracked)"
+
 func main() {
-	println("Hello, World!")
+	println("Hello, World!", version)
 }
