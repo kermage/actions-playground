@@ -3,45 +3,33 @@ name: Build Zip
 on:
   push:
     tags:
-      - "*"
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
   contents: read
 
 jobs:
-  create:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Prepare variables
-      shell: bash
-      run: |
-        REPO_SLUG="${GITHUB_REPOSITORY#*/}"
-        TAG_NAME="${GITHUB_REF#refs/tags/}"
-        OUT_ZIP="${HOME}/${REPO_SLUG}.zip"
+      - name: Archive tagged version
+        id: archive
+        shell: bash
+        run: |
+          REPO_SLUG="${{ github.repository }}/${{ github.repository_owner }}\/}"
+          OUT_DIR="${HOME}/${REPO_SLUG}"
 
-        echo "REPO_SLUG=$REPO_SLUG" >> $GITHUB_ENV
-        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
-        echo "OUT_ZIP=$OUT_ZIP" >> $GITHUB_ENV
+          mkdir -p "$OUT_DIR"
+          echo "OUT_DIR=$OUT_DIR" >> "$GITHUB_OUTPUT"
+          echo "REPO_SLUG=$REPO_SLUG" >> "$GITHUB_OUTPUT"
+          git archive --prefix="${REPO_SLUG}/" "${{ github.ref_name }}" | tar -xC "$OUT_DIR"
 
-    - name: Git archive version
-      shell: bash
-      run: |
-        echo "Archiving $REPO_SLUG $TAG_NAME"
-
-        git archive --prefix="${REPO_SLUG}/" "$TAG_NAME" --output="$OUT_ZIP"
-
-        echo "Prevent zipping the zip"
-
-        mkdir "${HOME}/${REPO_SLUG}"
-        cd "${HOME}/${REPO_SLUG}"
-        unzip $OUT_ZIP
-
-    - name: Upload as an artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{ env.REPO_SLUG }}
-        path: "~/${{ env.REPO_SLUG }}"
+      - name: Upload as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.archive.outputs.REPO_SLUG }}
+          path: ${{ steps.archive.outputs.OUT_DIR }}
