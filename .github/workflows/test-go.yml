@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-tags: ${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Setup Go
         uses: actions/setup-go@v5
