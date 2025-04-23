@@ -31,7 +31,11 @@ jobs:
           echo "::warning::This is a warning"
           echo "::notice::This is a notice"
           echo "::debug::This is a debug"
-          echo "Password: ::add-mask::secret"
+          echo "Password=::add-mask::secret"
+
+          command -v sudo
+          command -v svn
+          apt update && apt install -y svn
 
           npx dotenv-extra
           ls -la
