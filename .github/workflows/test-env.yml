@@ -23,8 +23,13 @@ jobs:
 
       - name: Print
         run: |
+          echo "::group::GITHUB Variables"
           echo "Event name: ${{ github.event_name }}"
           echo "Ref type: ${{ github.ref_type }}"
+          echo "::endgroup::GITHUB Variables"
+          echo "::error::This is an error"
+          echo "::warning::This is a warning"
+          echo "::notice::This is a notice"
 
           npx dotenv-extra
           ls -la
