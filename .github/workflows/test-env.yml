@@ -30,6 +30,8 @@ jobs:
           echo "::error::This is an error"
           echo "::warning::This is a warning"
           echo "::notice::This is a notice"
+          echo "::debug::This is a debug"
+          echo "Password: ::add-mask::secret"
 
           npx dotenv-extra
           ls -la
